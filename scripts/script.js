@@ -15,10 +15,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
 function clickNoQuadrado(evento) {
     let casa = evento.target;
     let idDaCasaString = evento.target.id;
+    casa.innerText = simbolo[turno];
     let idDaCasaInt = converterIdParaInteiro(idDaCasaString);
-    if(tabuleiro[idDaCasaInt] == ''){
-        casa.innerText = simbolo[turno];
+    if(tabuleiro[idDaCasaInt] == '') {
         preencherTabuleiro(idDaCasaInt, simbolo[turno]);
+        casa.innerText = simbolo[turno];
         trocarJogador();
     }
 }
