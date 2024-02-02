@@ -15,12 +15,13 @@ document.addEventListener('DOMContentLoaded', ()=>{
 function clickNoQuadrado(evento) {
     let casa = evento.target;
     let idDaCasaString = evento.target.id;
-    casa.innerText = simbolo[turno];
     let idDaCasaInt = converterIdParaInteiro(idDaCasaString);
-    preencherTabuleiro(idDaCasaInt, simbolo[turno]);
-    trocarJogador();
+    if(tabuleiro[idDaCasaInt] == ''){
+        casa.innerText = simbolo[turno];
+        preencherTabuleiro(idDaCasaInt, simbolo[turno]);
+        trocarJogador();
+    }
 }
-
 
 // Inverte o valor do id da div de string para int
 function converterIdParaInteiro(id) {
@@ -28,6 +29,7 @@ function converterIdParaInteiro(id) {
     return idDaCasaInt;
 }
 
+// Preencher o array de posições de acordo com casa e jogador
 function preencherTabuleiro(casaClickada, jogador){
     if(tabuleiro[casaClickada] == ''){
         tabuleiro[casaClickada] = jogador;

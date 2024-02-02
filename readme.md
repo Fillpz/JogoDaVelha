@@ -2,3 +2,4 @@ Projeto pessoal de um jogo da velha para aperfeiçoar o conhecimento nos seguint
 
 1 - Manipulação da árvore DOM
 2 - utilização de unicodes
+3 - Lógica de programação
