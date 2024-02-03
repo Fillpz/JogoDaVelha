@@ -4,6 +4,7 @@ const jogador = ['\u2694\uFE0F','\u2B55'];
 let resultado = document.querySelector('.resultado');
 let botao = document.querySelector('.reiniciar');
 botao.addEventListener('click', reiniciarJogo);
+let jogoAcabou = false;
  
 /* Após carregar toda a DOM e espera um click em uma 
     das casas para executar clickNoQuadrado */
@@ -16,15 +17,17 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
 // Ao clicar em uma das casas escreve o simbolo e capta o id 
 function clickNoQuadrado(evento) {
-    let casa = evento.target;
-    let idDaCasaString = evento.target.id;
-    let idDaCasaInt = converterIdParaInteiro(idDaCasaString);
-    
-    if(tabuleiro[idDaCasaInt] == '') {
-        preencherTabuleiro(idDaCasaInt, jogador[turno]);
-        casa.innerText = jogador[turno];
-        trocarJogador();
-        verificarVencedor();
+    if(!jogoAcabou){
+        let casa = evento.target;
+        let idDaCasaString = evento.target.id;
+        let idDaCasaInt = converterIdParaInteiro(idDaCasaString);
+
+        if(tabuleiro[idDaCasaInt] == '') {
+            preencherTabuleiro(idDaCasaInt, jogador[turno]);
+            casa.innerText = jogador[turno];
+            trocarJogador();
+            verificarVencedor();
+        }
     }
 }
 
@@ -67,14 +70,17 @@ function verificarVencedor() {
         resultado.style.display = 'block';
         botao.style.display = 'block';
         resultado.innerText = jogador[0] + ' Venceu!';
+        jogoAcabou = true;
     } else if(oGanhou){
         resultado.style.display = 'block';
         botao.style.display = 'block';
         resultado.innerText = jogador[1] + ' Venceu!';
+        jogoAcabou = true;
     } else if(tabuleiroCompleto()){
         resultado.style.display = 'block';
         botao.style.display = 'block';
         resultado.innerText = 'Deu velha!';
+        jogoAcabou = true;
     }
 }
 
@@ -107,9 +113,11 @@ function trocarJogador() {
 
 // Reiniciar o jogo
 function reiniciarJogo() {
+    turno = 0;
     resultado.style.display = 'none';
     botao.style.display = 'none';
     tabuleiro.fill('');
     let casa = document.querySelectorAll('.casa');
     casa.forEach(casa => casa.innerText = '');
+    jogoAcabou = false;
 }
