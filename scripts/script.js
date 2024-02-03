@@ -1,6 +1,9 @@
 let tabuleiro = ['','','','','','','','',''];
 let turno = 0;
 const jogador = ['\u2694\uFE0F','\u2B55'];
+let resultado = document.querySelector('.resultado');
+let botao = document.querySelector('.reiniciar');
+botao.addEventListener('click', reiniciarJogo);
  
 /* Após carregar toda a DOM e espera um click em uma 
     das casas para executar clickNoQuadrado */
@@ -25,7 +28,8 @@ function clickNoQuadrado(evento) {
     }
 }
 
-function verificarVencedor() {
+// Verificar se algumas das possibilidades de vitória é satisfeita
+function verificarVencedor() {    
     let xGanhou = (
         // Verificando vertical
           (tabuleiro[0] == jogador[0] && tabuleiro[3] == jogador[0] && tabuleiro[6] == jogador[0])
@@ -41,6 +45,7 @@ function verificarVencedor() {
         ||(tabuleiro[0] == jogador[0] && tabuleiro[4] == jogador[0] && tabuleiro[8] == jogador[0])
         ||(tabuleiro[2] == jogador[0] && tabuleiro[4] == jogador[0] && tabuleiro[6] == jogador[0])
     );
+
     let oGanhou = (
         // Verificando vertical
         (tabuleiro[0] == jogador[1] && tabuleiro[3] == jogador[1] && tabuleiro[6] == jogador[1])
@@ -57,15 +62,23 @@ function verificarVencedor() {
         ||(tabuleiro[2] == jogador[1] && tabuleiro[4] == jogador[1] && tabuleiro[6] == jogador[1])
     );
 
+    // Verificar se algum dos jogadores venceu, ou se deu velha
     if(xGanhou){
-        console.log(jogador[0] + 'ganhou');
+        resultado.style.display = 'block';
+        botao.style.display = 'block';
+        resultado.innerText = jogador[0] + ' Venceu!';
     } else if(oGanhou){
-        console.log(jogador[1] + 'ganhou');
+        resultado.style.display = 'block';
+        botao.style.display = 'block';
+        resultado.innerText = jogador[1] + ' Venceu!';
     } else if(tabuleiroCompleto()){
-        console.log('Deu velha');
+        resultado.style.display = 'block';
+        botao.style.display = 'block';
+        resultado.innerText = 'Deu velha!';
     }
 }
 
+// Verificar se o tabuleiro está completamente preenchido
 function tabuleiroCompleto() {
     return tabuleiro.every(casa => casa !== '');
 }
@@ -90,4 +103,13 @@ function trocarJogador() {
     } else {
         turno = 0
     }
+}
+
+// Reiniciar o jogo
+function reiniciarJogo() {
+    resultado.style.display = 'none';
+    botao.style.display = 'none';
+    tabuleiro.fill('');
+    let casa = document.querySelectorAll('.casa');
+    casa.forEach(casa => casa.innerText = '');
 }

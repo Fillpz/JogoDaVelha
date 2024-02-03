@@ -43,3 +43,30 @@ h1 {
     top: 0; right: 0; left: 0; bottom: 0;  
     content: "\2716 \FE0F";
 }
+
+.resultado {
+    height: 40px;
+    margin: auto;
+    font-size: 25px;
+    font-weight: bold;
+    color: white;
+    display: none;
+}
+
+.containerResultado {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background:rgb(46, 177, 177);
+    max-width: 313px;
+    margin: auto;
+}
+
+.reiniciar {
+    margin-right: 10px;
+    display: none;
+    border: none;
+    height: 20px;
+    font-weight: 600;
+    cursor: pointer;
+}
